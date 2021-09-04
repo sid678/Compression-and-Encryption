@@ -1,6 +1,6 @@
 import random
 
-maxChar = 64
+maxChar = 640
 
 def gcd(a,b):
 
