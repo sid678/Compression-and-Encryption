@@ -1,7 +1,9 @@
 import sys
 import cv2
 
-n = sys.argv[0]
+n = sys.argv[1]
+n = int(n)
+# print(n)
 
 if n == 1:
     print("Enter name of image from local system with right path to be compressed")

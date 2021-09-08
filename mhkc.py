@@ -1,3 +1,4 @@
+import sys
 import random
 
 maxChar = 640
@@ -155,24 +156,41 @@ def decrypt(cipher,rInv,w,q):
 wPrivate,rPrivate,qPrivate = generatePrivateKey()
 publicKey = generatePublicKey(wPrivate,rPrivate,qPrivate)
 rInv = modInv(rPrivate,qPrivate)
-# inp = raw_input()
 
-param = 1
-n=1
-if n==1:
 
-    inp = "yo"
-    cipher, bits = encrpyt(inp,publicKey,param)
-    decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
-    print(cipher)
-    print(binaryToMessage(decipher))
+param = sys.argv[1]
+param = int(param)
+if param == 1:
+
+    file1 = open("MyFile.txt","r")
+    inpList = file1.readlines()
+    for inp in inpList:
+        cipher, bits = encrpyt(inp,publicKey,param)
+        decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
+        print(cipher)
+        print(binaryToMessage(decipher))
 
 else:
 
-    img = [[1,2,3,4,5,6,7],[2,3,4,5,6,7,8]]
+    file1 = open("MyFile.txt","r")
+    # inpList = file1.readlines()
+    imgRaw = file1.readlines()
+    r = int(imgRaw[0])
+    c = int(imgRaw[1])
+    imgP = []
+    # print(img)
+    for i in range(2,r):
+        temp = []
+        for j in range(c):
+            
+            if imgRaw[i][j]>='0' and imgRaw[i][j]<='9':
+                temp.append(int(imgRaw[i][j]))
+        imgP.append(temp)
+            
     cipherList = []
     decipherList = []
-    for row in img:
+    for row in imgP:
+        print(row)
         cipher, bits = encrpyt(row,publicKey,param)
         cipherList.append(cipher)
     for cipher in cipherList:
