@@ -31,4 +31,3 @@ else:
     file1.write(str(len(name))+"\n")
     for i in name:
         file1.write(str(ord(i))+" ")
-    

@@ -247,15 +247,15 @@ int main()
         }
     }
 
-    // for(int i=0;i<r;++i)
-    // {
-    //     for(int j=0;j<c;++j)
-    //     {
-    //         cout << img[i][j] <<" ";
-    //     }
-    //     cout<<endl;
-    // }   
-
+    for(int i=0;i<r;++i)
+    {
+        for(int j=0;j<c;++j)
+        {
+            cout << img[i][j] <<" ";
+        }
+        cout<<endl;
+    }   
+    
     vector<int>frequencyArr = countFrequency(img,r,c);
     vector<minheapNode*>minheap;
 
