@@ -73,13 +73,17 @@ def decimalToBinary(n):
     return bits
 
 
-def stringToBinary(sentence):
+def stringToBinary(sentence,param):
 
     l = len(sentence)
     bits = [0]*(maxChar - 8*l)
     for i in range(l):
-        asciiv = ord(sentence[i])
-        bits.extend(decimalToBinary(asciiv))
+        if param == 1:
+            asciiv = ord(sentence[i])
+            bits.extend(decimalToBinary(asciiv))
+        else:
+            bits.extend(decimalToBinary(sentence[i]))
+
 
     return bits
 
@@ -102,10 +106,28 @@ def binaryToMessage(decipher):
 
     return message
 
+def binaryToImage(decipher):
 
-def encrpyt(sentence,publicKey):
+    imgRow = []
+    l = len(decipher)
+    var = 0
+    for i in range(l):
 
-    bits = stringToBinary(sentence)
+        if i%8==0:
+            if var !=0:
+                imgRow.append(var)
+            var = 0
+        var = 2*var + decipher[i]
+
+    if var !=0:
+        imgRow.append(var)
+
+    return imgRow
+
+
+def encrpyt(sentence,publicKey,param):
+
+    bits = stringToBinary(sentence,param)
 
     cipher = 0
     for i in range(maxChar ):
@@ -133,9 +155,30 @@ def decrypt(cipher,rInv,w,q):
 wPrivate,rPrivate,qPrivate = generatePrivateKey()
 publicKey = generatePublicKey(wPrivate,rPrivate,qPrivate)
 rInv = modInv(rPrivate,qPrivate)
-inp = raw_input()
-cipher, bits = encrpyt(inp,publicKey)
-decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
-print(cipher)
-print(binaryToMessage(decipher))
+# inp = raw_input()
 
+param = 1
+n=1
+if n==1:
+
+    inp = "yo"
+    cipher, bits = encrpyt(inp,publicKey,param)
+    decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
+    print(cipher)
+    print(binaryToMessage(decipher))
+
+else:
+
+    img = [[1,2,3,4,5,6,7],[2,3,4,5,6,7,8]]
+    cipherList = []
+    decipherList = []
+    for row in img:
+        cipher, bits = encrpyt(row,publicKey,param)
+        cipherList.append(cipher)
+    for cipher in cipherList:
+        decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
+        decipherList.append(decipher)
+    for cipher in cipherList:
+        print(cipher)
+    for decipher in decipherList:
+        print(binaryToImage(decipher))

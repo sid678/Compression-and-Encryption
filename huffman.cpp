@@ -224,6 +224,18 @@ void checkerPrefix(string *code)
     cout<<"Success!!\n";
 }
 
+void printHuffmanCode(string *code,vector<vector<int>>&img, int r, int c)
+{
+    for(int i=0;i<r;++i)
+    {
+        for(int j=0;j<c;++j)
+        {
+            cout<<code[img[i][j]];
+        }
+        cout<<endl;
+    }
+}
+
 int main()
 {
     string code[256];
@@ -255,7 +267,7 @@ int main()
         }
         cout<<endl;
     }   
-    
+
     vector<int>frequencyArr = countFrequency(img,r,c);
     vector<minheapNode*>minheap;
 
@@ -276,6 +288,7 @@ int main()
     
     checkerFreqLen(frequencyArr,code);
     checkerPrefix(code);
+    printHuffmanCode(code,img,r,c);
 
 
 }
