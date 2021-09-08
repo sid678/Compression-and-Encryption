@@ -36,13 +36,16 @@ minheapNode* createNode(int pixelVal, int frequency)
     return temp;
 }
 
-vector<int> countFrequency(vector<int>&img)
+vector<int> countFrequency(vector<vector<int>>&img, int r, int c)
 {
     vector<int>frequency(256,0);
-    int sz = img.size();
-    for(int i=0;i<sz;++i)
+    
+    for(int i=0;i<r;++i)
     {
-        frequency[img[i]]++;
+        for(int j=0;j<c;++j)
+        {
+            frequency[img[i][j]]++;
+        }
     }
     return frequency;
 }
@@ -224,8 +227,36 @@ void checkerPrefix(string *code)
 int main()
 {
     string code[256];
-    vector<int> img=tempimg(); 
-    vector<int>frequencyArr = countFrequency(img);
+
+    ifstream Image("MyFile.txt");
+    int r,c;
+    Image >> r >>c;
+    cout<<r<<" "<<c<<endl;
+    vector<vector<int>>img;
+    img.resize(r);
+    for(int i=0;i<r;++i)
+    {
+        img[i].resize(c);
+    }
+
+    for(int i=0;i<r;++i)
+    {
+        for(int j=0;j<c;++j)
+        {
+            Image >> img[i][j];
+        }
+    }
+
+    // for(int i=0;i<r;++i)
+    // {
+    //     for(int j=0;j<c;++j)
+    //     {
+    //         cout << img[i][j] <<" ";
+    //     }
+    //     cout<<endl;
+    // }   
+
+    vector<int>frequencyArr = countFrequency(img,r,c);
     vector<minheapNode*>minheap;
 
     for(int i=0;i<256;++i)
