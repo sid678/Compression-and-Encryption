@@ -6,7 +6,7 @@ n = int(n)
 # print(n)
 
 if n == 1:
-    print("Enter name of image from local system with right path to be compressed")
+    print("Enter name of image from local system with right path to be compressed or encrypted")
     name = input()
     img = cv2.imread(name,cv2.IMREAD_GRAYSCALE)
     print(img)
@@ -25,7 +25,7 @@ if n == 1:
     file1.close()
 
 else:
-    print("Enter message to be compressed")
+    print("Enter message to be compressed or encrypted")
     name = input()
     print(name)
     file1 = open("MyFile.txt","w")
