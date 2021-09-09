@@ -74,15 +74,15 @@ def decimalToBinary(n):
     return bits
 
 
-def stringToBinary(sentence,param):
+def stringToBinary(sentence):
 
     l = len(sentence)
     bits = [0]*(maxChar - 8*l)
     for i in range(l):
-        if param == 1:
-            asciiv = ord(sentence[i])
-            bits.extend(decimalToBinary(asciiv))
-        else:
+        # if param == 1:
+        #     asciiv = ord(sentence[i])
+        #     bits.extend(decimalToBinary(asciiv))
+        # else:
             bits.extend(decimalToBinary(sentence[i]))
 
 
@@ -126,9 +126,9 @@ def binaryToImage(decipher):
     return imgRow
 
 
-def encrpyt(sentence,publicKey,param):
+def encrpyt(sentence,publicKey):
 
-    bits = stringToBinary(sentence,param)
+    bits = stringToBinary(sentence)
 
     cipher = 0
     for i in range(maxChar ):
@@ -159,7 +159,7 @@ rInv = modInv(rPrivate,qPrivate)
 
 
 param = sys.argv[1]
-param = int(param)
+# param = int(param)
 
 file1 = open("MyFile.txt","r")
 imgRaw = file1.readlines()
@@ -187,7 +187,7 @@ cipherList = []
 decipherList = []
 for row in imgP:
     print(row)
-    cipher, bits = encrpyt(row,publicKey,param)
+    cipher, bits = encrpyt(row,publicKey)
     cipherList.append(cipher)
 for cipher in cipherList:
     decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
@@ -196,7 +196,7 @@ for cipher in cipherList:
     print(cipher)
 for decipher in decipherList:
 
-    if param == 2:
+    if param == "Yes":
         print(binaryToImage(decipher))
     else:
         print(binaryToMessage(decipher))
