@@ -286,9 +286,8 @@ int main()
 
     traverseTree(minheap[0],code,"");
     
-    checkerFreqLen(frequencyArr,code);
-    checkerPrefix(code);
+    // checkerFreqLen(frequencyArr,code);
+    // checkerPrefix(code);
     printHuffmanCode(code,img,r,c);
-
 
 }

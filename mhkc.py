@@ -160,43 +160,43 @@ rInv = modInv(rPrivate,qPrivate)
 
 param = sys.argv[1]
 param = int(param)
-if param == 1:
 
-    file1 = open("MyFile.txt","r")
-    inpList = file1.readlines()
-    for inp in inpList:
-        cipher, bits = encrpyt(inp,publicKey,param)
-        decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
-        print(cipher)
-        print(binaryToMessage(decipher))
+file1 = open("MyFile.txt","r")
+imgRaw = file1.readlines()
+print(imgRaw)
+r = int(imgRaw[0])
+c = int(imgRaw[1])
+print(r)
+print(c)
+imgP = []
+for i in range(2,r+2):
+    temp = []
+    num = ""
+    for j in range(len(imgRaw[i])):
+        print(j)
+        if imgRaw[i][j] != ' ':
+            num = num + imgRaw[i][j]
+        elif imgRaw[i][j] ==' ':
+            temp.append(int(num))
+            num = "" 
 
-else:
+    imgP.append(temp)
 
-    file1 = open("MyFile.txt","r")
-    # inpList = file1.readlines()
-    imgRaw = file1.readlines()
-    r = int(imgRaw[0])
-    c = int(imgRaw[1])
-    imgP = []
-    # print(img)
-    for i in range(2,r):
-        temp = []
-        for j in range(c):
-            
-            if imgRaw[i][j]>='0' and imgRaw[i][j]<='9':
-                temp.append(int(imgRaw[i][j]))
-        imgP.append(temp)
-            
-    cipherList = []
-    decipherList = []
-    for row in imgP:
-        print(row)
-        cipher, bits = encrpyt(row,publicKey,param)
-        cipherList.append(cipher)
-    for cipher in cipherList:
-        decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
-        decipherList.append(decipher)
-    for cipher in cipherList:
-        print(cipher)
-    for decipher in decipherList:
+print(imgP)
+cipherList = []
+decipherList = []
+for row in imgP:
+    print(row)
+    cipher, bits = encrpyt(row,publicKey,param)
+    cipherList.append(cipher)
+for cipher in cipherList:
+    decipher = decrypt(cipher,rInv,wPrivate,qPrivate)
+    decipherList.append(decipher)
+for cipher in cipherList:
+    print(cipher)
+for decipher in decipherList:
+
+    if param == 2:
         print(binaryToImage(decipher))
+    else:
+        print(binaryToMessage(decipher))
